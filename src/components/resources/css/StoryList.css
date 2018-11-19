@@ -1,7 +1,6 @@
 .story-table {
     margin-top: 10px;
     overflow-y: auto;
-    cursor: pointer;
     border-collapse: collapse;
   }
 
@@ -18,6 +17,8 @@ th.title {
     width: 500px;
 }
 
-.button-read:hover {
-    background-color: blueviolet;
+
+.button-read:hover, .button-search:hover {
+    background-color: #ddc0b2;
+    cursor: pointer;
 }

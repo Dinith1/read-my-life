@@ -1,8 +1,7 @@
 import * as React from 'react';
-import './StoryList.css';
+import './resources/css/StoryList.css';
 
-import book_icon from './book_icon.png';
-
+import book_icon from './resources/book_icon.png'
 interface IProps {
     stories: any[],
     readStory: any,
@@ -23,8 +22,8 @@ export default class StoryList extends React.Component<IProps, {}> {
             <div>
                 <div className="search-bar">
                     <input className="search-input" id="search-input" type="text" placeholder="Search for a story by title or author" />
-                    <button className="search-button" onClick={this.searchTitle}> Search By Title </button>
-                    <button className="search-button" onClick={this.searchAuthor}> Search By Author </button>
+                    <button className="button-search" onClick={this.searchTitle}> Search By Title </button>
+                    <button className="button-search" onClick={this.searchAuthor}> Search By Author </button>
 
                 </div>
 

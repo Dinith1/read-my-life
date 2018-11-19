@@ -1,5 +1,5 @@
 import * as React from 'react';
-import './TagList.css';
+import './resources/css/TagList.css';
 
 interface IProps {
     selectTag: any

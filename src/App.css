@@ -4,7 +4,7 @@ body {
 }
 
 .header-wrapper {
-  background-color: #f5f5f5;
+  background-color: #ddc0b2;
   border-bottom: 2px solid #ff0000;
   border-top: 2px solid #ff0000;
   width: 100%;
@@ -20,6 +20,7 @@ body {
 }
 
 .body-tags {
+  background-color: #ddc0b2;
   border-bottom: 2px solid #ff0000;
   border-top: 2px solid #ff0000;
   width: 10%;

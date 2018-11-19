@@ -79,7 +79,6 @@ export default class App extends React.Component<{}, IState> {
   private readStory(story: any) {
     story = story[0]
     alert("Author: " + story.author + "\nTitle: " + story.title + "\n ...")
-    global.console.log(story);
   }
 
   // Filter the currently displayed stories to show those by the chosen title
