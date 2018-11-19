@@ -44,11 +44,11 @@ export default class App extends React.Component {
         <div className="body-wrapper">
           <div className="body">
             <div className="body-tags">
-              <TagList />
+              <TagList selectTag={null}/>
             </div>
 
             <div className="body-list">
-              <StoryList stories={storylist} read={null} searchTitle={null} searchAuthor={null}/>
+              <StoryList stories={storylist} readStory={null} searchTitle={null} searchAuthor={null}/>
             </div>
           </div>
         </div>

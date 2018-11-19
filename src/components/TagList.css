@@ -1,0 +1,8 @@
+.tags {
+    color: #493e32;
+}
+
+h2:hover {
+    color: #d3a87a;
+    cursor: pointer;
+}

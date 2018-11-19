@@ -3,8 +3,14 @@
     /* height: calc(100vh - 140px); */
     overflow-y: scroll;
     cursor: pointer;
+    border-collapse: collapse;
+  }
+
+  tr:nth-child(even) {
+      background-color: #f5f5f5;
   }
 
   .search-input {
       width: 600px;
   }
+
