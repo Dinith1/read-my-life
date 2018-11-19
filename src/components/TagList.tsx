@@ -20,6 +20,7 @@ export default class TagList extends React.Component<IProps, {}> {
                     <h2 id="funny" onClick={this.selectTag}>Funny</h2>
                     <h2 id="happy" onClick={this.selectTag}>Happy</h2>
                     <h2 id="love" onClick={this.selectTag}>Love</h2>
+                    <h2 id="sad" onClick={this.selectTag}>Sad</h2>
                     <h2 id="scary" onClick={this.selectTag}>Scary</h2>
                     <h2 id="strange" onClick={this.selectTag}>Strange</h2>
                 </div>
@@ -32,6 +33,8 @@ export default class TagList extends React.Component<IProps, {}> {
         tag = window.event
         tag = tag.target || tag.srcElement
         alert("SEARCHING BY: " + tag.id)
+
+        // Update table using READ request
     }
 
 }

@@ -29,15 +29,17 @@ export default class StoryList extends React.Component<IProps, {}> {
                 <div className="story-table">
                     <table className="story-table">
                         <col className="table-title" width="130"/>
-                        <col className="table-author" width="130" />
-                        <col className="table-description" width="130" />
-                        <col className="table-rating" width="130" />
+                        <col className="table-author" width="130"/>
+                        <col className="table-description" width="130"/>
+                        <col className="table-rating" width="130"/>
+                        <col className="table-tag" width="130"/>
                         <tbody>
                             <tr>
                                 <th>title</th>
                                 <th>Author</th>
                                 <th>Description</th>
-                                <th >Rating</th>
+                                <th>Rating</th>
+                                <th>Tag</th>
                             </tr>
                             {this.createTable()}
                         </tbody>
@@ -63,14 +65,15 @@ export default class StoryList extends React.Component<IProps, {}> {
             children.push(<td key={"author" + i}> {story.author} </td>)
             children.push(<td key={"description" + i}> {story.description} </td>)
             children.push(<td key={"rating" + i} align="center"> {story.rating} </td>)
-            children.push(<td key={"read-button" + i}><button onClick={this.readStory}> READ </button></td>)
+            children.push(<td key={"tag" + i} align="center"> {story.tag} </td>)
+            children.push(<td key={"read-button" + i}><button onClick={this.readStory.bind(this, i)}> READ </button></td>)
             table.push(<tr key={i + ""} id={i + ""}>{children}</tr>)
         }
         return table
     }
 
-    private readStory() {
-        alert("READING");
+    private readStory(index: any) {
+        alert("READING : " + index);
     }
 
     private searchTitle() {
@@ -79,9 +82,8 @@ export default class StoryList extends React.Component<IProps, {}> {
             return;
         }
         const searchString = userInput.value
-        alert("SEARCHED FOR TITLE : " + searchString)
-
         // Do a READ request with the given title
+        this.props.searchTitle(searchString)
     }
 
     private searchAuthor() {
@@ -90,9 +92,8 @@ export default class StoryList extends React.Component<IProps, {}> {
             return;
         }
         const searchString = userInput.value
-        alert("SEARCHED FOR AUTHOR : " + searchString)
-
         // Do a READ request with the given author
+        this.props.searchAuthor(searchString)
     }
 
     // Method to check input isn't empty
