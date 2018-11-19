@@ -1,6 +1,10 @@
 .story-table {
-    margin-top: 20px;
-    height: calc(100vh - 140px);
+    margin-top: 10px;
+    /* height: calc(100vh - 140px); */
     overflow-y: scroll;
     cursor: pointer;
+  }
+
+  .search-input {
+      width: 600px;
   }
