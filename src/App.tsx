@@ -1,11 +1,13 @@
 import * as React from 'react';
 import './App.css';
+import StoryDisplay from './components/StoryDisplay';
 import StoryList from './components/StoryList';
 import TagList from './components/TagList';
 
 interface IState {
   stories: any[],
-  currentTag: string
+  currentTag: string,
+  x: any
 }
 
 export default class App extends React.Component<{}, IState> {
@@ -42,7 +44,8 @@ export default class App extends React.Component<{}, IState> {
           title: "Harry Potter",
         }],
       ],
-      currentTag: "all"
+      currentTag: "all",
+      x: <StoryDisplay />
     }
 
     this.searchTitle = this.searchTitle.bind(this)
@@ -79,6 +82,9 @@ export default class App extends React.Component<{}, IState> {
   private readStory(story: any) {
     story = story[0]
     alert("Author: " + story.author + "\nTitle: " + story.title + "\n ...")
+
+    const storyContents = document.getElementById("body-list") as HTMLElement
+    storyContents.innerHTML = "<StoryDisplay />"
   }
 
   // Filter the currently displayed stories to show those by the chosen title
