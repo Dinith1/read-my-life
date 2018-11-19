@@ -1,16 +1,23 @@
 .story-table {
     margin-top: 10px;
-    /* height: calc(100vh - 140px); */
     overflow-y: auto;
     cursor: pointer;
     border-collapse: collapse;
   }
 
-  tr:nth-child(even) {
-      background-color: #e5e5e5;
-  }
+tr:nth-child(even) {
+    background-color: #e5e5e5;
+  
+}
 
-  .search-input {
-      width: 600px;
-  }
+.search-input {
+    width: 600px;
+}
 
+th.title {
+    width: 500px;
+}
+
+.button-read:hover {
+    background-color: blueviolet;
+}

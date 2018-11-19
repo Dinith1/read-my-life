@@ -1,6 +1,8 @@
 import * as React from 'react';
 import './StoryList.css';
 
+import book_icon from './book_icon.png';
+
 interface IProps {
     stories: any[],
     readStory: any,
@@ -61,19 +63,22 @@ export default class StoryList extends React.Component<IProps, {}> {
         for (let i = 0; i < storyList.length; i++) {
             const children = []
             const story = storyList[i][0]
-            children.push(<td key={"title" + i}> {story.title} </td>)
-            children.push(<td key={"author" + i}> {story.author} </td>)
-            children.push(<td key={"description" + i}> {story.description} </td>)
+            children.push(<td key={"title" + i} align="center"> {story.title} </td>)
+            children.push(<td key={"author" + i} align="center"> {story.author} </td>)
+            children.push(<td key={"description" + i} align="center"> {story.description} </td>)
             children.push(<td key={"rating" + i} align="center"> {story.rating} </td>)
             children.push(<td key={"tag" + i} align="center"> {story.tag} </td>)
-            children.push(<td key={"read-button" + i}><button onClick={this.readStory.bind(this, i)}> READ </button></td>)
+            children.push(<td key={"read-button" + i}><button className="button-read" onClick={this.readStory.bind(this, i)}> <img src={book_icon} width="12" height="12"/> Read </button></td>)
             table.push(<tr key={i + ""} id={i + ""}>{children}</tr>)
         }
         return table
     }
 
     private readStory(index: any) {
-        alert("READING : " + index);
+        const selectedStory = this.props.stories[index]
+        if (selectedStory != null) {
+            this.props.readStory(selectedStory)
+        }
     }
 
     private searchTitle() {
