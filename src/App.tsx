@@ -24,6 +24,7 @@ export default class App extends React.Component<{}, IState> {
 
     this.searchTitle = this.searchTitle.bind(this)
     this.searchAuthor = this.searchAuthor.bind(this)
+    this.searchStory = this.searchStory.bind(this)
     this.readStory = this.readStory.bind(this)
     this.selectTag = this.selectTag.bind(this)
     this.selectTag("all")
@@ -73,11 +74,23 @@ export default class App extends React.Component<{}, IState> {
   }
 
   // Filter the currently displayed stories to show those by the chosen title
-  private searchTitle(title: any) {
+  private searchTitle(title: string) {
+    this.searchStory(title, true)
+  }
+
+  // Filter the currently displayed stories to show those by the chosen title
+  private searchAuthor(author: any) {
+    this.searchStory(author, false)
+  }
+
+  // Helper function for searchTitle() and searchAuthor()
+  private searchStory(str: string, isTitle: boolean) {
     const searchResults = []
+    const test = (isTitle) ? "title" : "author"
+    global.console.log(test)
     for (let story of this.state.storiesCopy) {
       story = story[0]
-      if (story.title.toLowerCase().includes(title.toLowerCase())) { searchResults.push([story]) }
+      if (story[test].toLowerCase().includes(str.toLowerCase())) { searchResults.push([story]) }
     }
 
     if (searchResults.length === 0) {
@@ -85,11 +98,6 @@ export default class App extends React.Component<{}, IState> {
     } else {
       this.setState({ stories: searchResults })
     }
-  }
-
-  // Filter the currently displayed stories to show those by the chosen title
-  private searchAuthor(author: any) {
-    alert("SEARCHING BY AUTHOR: " + author)
   }
 
   // READ all stories from the API with the specified tag
