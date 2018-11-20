@@ -15,15 +15,17 @@ export default class StoryList extends React.Component<IProps, {}> {
         this.readStory = this.readStory.bind(this)
         this.searchTitle = this.searchTitle.bind(this)
         this.searchAuthor = this.searchAuthor.bind(this)
+        this.checkInputIsEmpty = this.checkInputIsEmpty.bind(this)
+        this.enableButtons = this.enableButtons.bind(this)
     }
 
     public render() {
         return (
             <div>
                 <div className="search-bar">
-                    <input className="search-input" id="search-input" type="text" placeholder="Search for a story by title or author" />
-                    <button className="button-search" onClick={this.searchTitle}> Search By Title </button>
-                    <button className="button-search" onClick={this.searchAuthor}> Search By Author </button>
+                    <input className="search-input" id="search-input" type="text" placeholder="Search for a story by title or author" onChange={this.enableButtons}/>
+                    <button className="button-search" id="btn-search-title" onClick={this.searchTitle} disabled={true}> Search By Title </button>
+                    <button className="button-search" id="btn-search-author" onClick={this.searchAuthor} disabled={true}> Search By Author </button>
 
                 </div>
 
@@ -81,6 +83,7 @@ export default class StoryList extends React.Component<IProps, {}> {
     }
 
     private searchTitle() {
+        global.console.log("SUCCESS")
         const userInput = document.getElementById("search-input") as HTMLInputElement
         if (this.checkInputIsEmpty(userInput)) {
             return;
@@ -91,6 +94,7 @@ export default class StoryList extends React.Component<IProps, {}> {
     }
 
     private searchAuthor() {
+        global.console.log("SUCCESS")
         const userInput = document.getElementById("search-input") as HTMLInputElement
         if (this.checkInputIsEmpty(userInput)) {
             return;
@@ -103,10 +107,23 @@ export default class StoryList extends React.Component<IProps, {}> {
     // Method to check input isn't empty
     private checkInputIsEmpty(userInput: any) {
         if ((userInput === null) || (userInput.value === null) || (userInput.value === "")) {
-            alert("ERROR: You must type something in the search box.")
             return true;
         }
         return false;
+    }
+
+    // Enable buttons when user input is non-empty and disable otherwise
+    private enableButtons() {
+        const userInput = document.getElementById("search-input") as HTMLInputElement
+        const btnTitle = document.getElementById("btn-search-title") as HTMLButtonElement
+        const btnAuthor = document.getElementById("btn-search-author") as HTMLButtonElement
+        if (this.checkInputIsEmpty(userInput)) {
+            btnTitle.disabled = true
+            btnAuthor.disabled = true
+        } else {
+            btnTitle.disabled = false
+            btnAuthor.disabled = false
+        }
     }
 
 }

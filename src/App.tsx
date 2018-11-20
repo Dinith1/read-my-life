@@ -87,7 +87,6 @@ export default class App extends React.Component<{}, IState> {
   private searchStory(str: string, isTitle: boolean) {
     const searchResults = []
     const test = (isTitle) ? "title" : "author"
-    global.console.log(test)
     for (let story of this.state.storiesCopy) {
       story = story[0]
       if (story[test].toLowerCase().includes(str.toLowerCase())) { searchResults.push([story]) }
