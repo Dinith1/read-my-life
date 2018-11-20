@@ -103,7 +103,7 @@ export default class StoryList extends React.Component<IProps, {}> {
     // Method to check input isn't empty
     private checkInputIsEmpty(userInput: any) {
         if ((userInput === null) || (userInput.value === null) || (userInput.value === "")) {
-            alert("FAIL")
+            alert("ERROR: You must type something in the search box.")
             return true;
         }
         return false;

@@ -32,9 +32,8 @@ export default class TagList extends React.Component<IProps, {}> {
     private selectTag(tag: any) {
         tag = window.event
         tag = tag.target || tag.srcElement
-        alert("SEARCHING BY: " + tag.id)
-
-        // Update table using READ request
+        // Update story list using a READ request
+        this.props.selectTag(tag.id)
     }
 
 }
