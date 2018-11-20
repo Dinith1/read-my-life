@@ -1,0 +1,49 @@
+.container {
+    
+}
+
+.top-box {
+    display: flex;
+    color: black;
+    background-color: beige;
+}
+
+.title {
+    font-weight: bold;
+    font-size: 50px;
+    padding-top: 5px;
+}
+
+.title-author-box {
+    padding: 0 0 20px 100px;
+    width: 60%;
+    background-color: azure;
+}
+
+.author-box {
+    display: flex;
+}
+
+.author {
+    font-weight: bold;
+    font-size: 18px;
+    padding: 0 0 0 15px;
+}
+
+.rating-box {
+    font-size: 18px;
+    font-weight: bold;
+    padding: 20px 0 0 100px;
+}
+
+.description-box {
+    background-color: beige;
+    padding: 20px 20px 20px 20px;
+}
+
+.contents-box {
+    padding: 20px 20px 20px 20px;
+    background-color: azure;
+    height: 500px;
+    overflow-y: auto;
+}

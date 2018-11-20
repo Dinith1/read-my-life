@@ -24,8 +24,8 @@ export default class StoryList extends React.Component<IProps, {}> {
             <div>
                 <div className="search-bar">
                     <input className="search-input" id="search-input" type="text" placeholder="Search for a story by title or author" onChange={this.enableButtons}/>
-                    <button className="button-search" id="btn-search-title" onClick={this.searchTitle} disabled={true}> Search By Title </button>
-                    <button className="button-search" id="btn-search-author" onClick={this.searchAuthor} disabled={true}> Search By Author </button>
+                    <button className="button-search" id="btn-search-title" onClick={this.searchTitle} disabled={false}> Search By Title </button>
+                    <button className="button-search" id="btn-search-author" onClick={this.searchAuthor} disabled={false}> Search By Author </button>
 
                 </div>
 
@@ -83,7 +83,6 @@ export default class StoryList extends React.Component<IProps, {}> {
     }
 
     private searchTitle() {
-        global.console.log("SUCCESS")
         const userInput = document.getElementById("search-input") as HTMLInputElement
         if (this.checkInputIsEmpty(userInput)) {
             return;
@@ -94,7 +93,6 @@ export default class StoryList extends React.Component<IProps, {}> {
     }
 
     private searchAuthor() {
-        global.console.log("SUCCESS")
         const userInput = document.getElementById("search-input") as HTMLInputElement
         if (this.checkInputIsEmpty(userInput)) {
             return;
