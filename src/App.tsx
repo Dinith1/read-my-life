@@ -1,5 +1,5 @@
 import * as React from 'react';
-// import ChatBot from 'react-simple-chatbot';
+import ChatBot from 'react-simple-chatbot';
 import './App.css';
 import StoryDisplay from './components/StoryDisplay';
 import StoryList from './components/StoryList';
@@ -10,7 +10,8 @@ interface IState {
   storiesCopy: any[],
   storyToRead: any,
   currentTag: string,
-  isRead: boolean
+  isRead: boolean,
+  chatbotIsOpen: boolean
 }
 
 export default class App extends React.Component<{}, IState> {
@@ -22,7 +23,8 @@ export default class App extends React.Component<{}, IState> {
       storiesCopy: [],
       storyToRead: null,
       currentTag: "all",
-      isRead: false
+      isRead: false,
+      chatbotIsOpen: false
     }
 
     this.searchTitle = this.searchTitle.bind(this)
@@ -30,13 +32,13 @@ export default class App extends React.Component<{}, IState> {
     this.searchStory = this.searchStory.bind(this)
     this.readStory = this.readStory.bind(this)
     this.selectTag = this.selectTag.bind(this)
+    this.openChatbot = this.openChatbot.bind(this)
     this.selectTag("all")
   }
 
   public render() {
     return (
       <div>
-
         <div className="header-wrapper">
           <h1>Read My Life</h1>
           <h4>Read and share the stories of your life</h4>
@@ -55,6 +57,20 @@ export default class App extends React.Component<{}, IState> {
             </div>
           </div>
         </div>
+
+        <div className="bot-container">
+          <button className="chatbot-button" id="chatbot-button" onClick={this.openChatbot}>Help</button>
+          {this.state.chatbotIsOpen && <ChatBot className="chatbot" id="chatbot"
+            steps={[
+              {
+                id: 'hello-world',
+                message: 'Hello World!',
+                end: true,
+              },
+            ]}
+          />}
+        </div>
+
 
       </div>
     );
@@ -100,6 +116,12 @@ export default class App extends React.Component<{}, IState> {
     } else {
       this.setState({ stories: searchResults })
     }
+  }
+
+  private openChatbot() {
+    this.setState({
+      chatbotIsOpen: !this.state.chatbotIsOpen
+    })
   }
 
   // READ all stories from the API with the specified tag

@@ -33,3 +33,21 @@ body {
   border-top: 2px solid #ff0000;
   width: 60%;
 }
+
+.bot-container {
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+}
+
+.chatbot-button {
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+}
+
+.chatbot {
+  position: absolute;
+  bottom: 40px;
+  right: 65px;
+}

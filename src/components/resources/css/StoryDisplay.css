@@ -30,10 +30,18 @@
     padding: 0 0 0 15px;
 }
 
+.edit-box {
+    background-color: azure;
+}
+
 .rating-box {
     font-size: 18px;
     font-weight: bold;
     padding: 20px 0 0 100px;
+}
+
+.share-box {
+    background-color: azure;
 }
 
 .description-box {

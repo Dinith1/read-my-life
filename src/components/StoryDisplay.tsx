@@ -18,9 +18,22 @@ export default class StoryDisplay extends React.Component<IProps, {}> {
                         <div className="title">{this.props.story.title}</div>
                         <div className="author-box">by <div className="author">{this.props.story.authorName}</div></div>
                     </div>
-                    <div className="rating-box">
-                        {this.props.story.rating}
+
+                    <div className="edit-rating-share-box">
+                        <div>
+                            <div className="edit-box">
+                                <button>edit</button>
+                                <button>delete</button>
+                            </div>
+                        </div>
+                        <div className="rating-box">
+                            {this.props.story.rating}
+                        </div>
+                        <div className="share-box">
+                            <button>share</button>
+                        </div>
                     </div>
+
                 </div>
                 <div className="description-box">
                     {this.props.story.description}
