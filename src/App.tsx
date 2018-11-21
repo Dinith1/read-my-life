@@ -1,6 +1,6 @@
 import * as React from 'react';
-import ChatBot from 'react-simple-chatbot';
 import './App.css';
+import ControlBar from './components/ControlBar';
 import StoryDisplay from './components/StoryDisplay';
 import StoryList from './components/StoryList';
 import TagList from './components/TagList';
@@ -10,8 +10,7 @@ interface IState {
   storiesCopy: any[],
   storyToRead: any,
   currentTag: string,
-  isRead: boolean,
-  chatbotIsOpen: boolean
+  isRead: boolean
 }
 
 export default class App extends React.Component<{}, IState> {
@@ -24,7 +23,6 @@ export default class App extends React.Component<{}, IState> {
       storyToRead: null,
       currentTag: "all",
       isRead: false,
-      chatbotIsOpen: false
     }
 
     this.searchTitle = this.searchTitle.bind(this)
@@ -32,7 +30,6 @@ export default class App extends React.Component<{}, IState> {
     this.searchStory = this.searchStory.bind(this)
     this.readStory = this.readStory.bind(this)
     this.selectTag = this.selectTag.bind(this)
-    this.openChatbot = this.openChatbot.bind(this)
     this.selectTag("all")
   }
 
@@ -40,8 +37,14 @@ export default class App extends React.Component<{}, IState> {
     return (
       <div>
         <div className="header-wrapper">
-          <h1>Read My Life</h1>
-          <h4>Read and share the stories of your life</h4>
+          <div className="title-wrapper">
+            <div className="title">Read My Life</div>
+            <div className="subtitle">Read and share the stories of your life</div>
+          </div>
+        </div>
+
+        <div className="control-wrapper">
+          <ControlBar searchTitle={this.searchTitle} searchAuthor={this.searchAuthor} currentTag={this.state.currentTag}/>
         </div>
 
         <div className="body-wrapper">
@@ -52,25 +55,11 @@ export default class App extends React.Component<{}, IState> {
 
             <div className="body-list">
               {(!this.state.isRead)
-                ? <StoryList stories={this.state.stories} readStory={this.readStory} searchTitle={this.searchTitle} searchAuthor={this.searchAuthor} />
+                ? <StoryList stories={this.state.stories} readStory={this.readStory} currentTag={this.state.currentTag} />
                 : <StoryDisplay story={this.state.storyToRead} />}
             </div>
           </div>
         </div>
-
-        <div className="bot-container">
-          <button className="chatbot-button" id="chatbot-button" onClick={this.openChatbot}>Help</button>
-          {this.state.chatbotIsOpen && <ChatBot className="chatbot" id="chatbot"
-            steps={[
-              {
-                id: 'hello-world',
-                message: 'Hello World!',
-                end: true,
-              },
-            ]}
-          />}
-        </div>
-
 
       </div>
     );
@@ -106,7 +95,7 @@ export default class App extends React.Component<{}, IState> {
   // Helper function for searchTitle() and searchAuthor()
   private searchStory(str: string, isTitle: boolean) {
     const searchResults = []
-    const test = (isTitle) ? "title" : "author"
+    const test = (isTitle) ? "title" : "authorName"
     for (const story of this.state.storiesCopy) {
       if (story[test].toLowerCase().includes(str.toLowerCase())) { searchResults.push(story) }
     }
@@ -116,12 +105,6 @@ export default class App extends React.Component<{}, IState> {
     } else {
       this.setState({ stories: searchResults })
     }
-  }
-
-  private openChatbot() {
-    this.setState({
-      chatbotIsOpen: !this.state.chatbotIsOpen
-    })
   }
 
   // READ all stories from the API with the specified tag
@@ -138,7 +121,7 @@ export default class App extends React.Component<{}, IState> {
       .then(json => {
         const currentStory = json[0]
         if (currentStory === undefined) {
-          return
+          json = []
         }
 
         this.setState({
