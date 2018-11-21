@@ -1,4 +1,5 @@
 import * as React from 'react';
+// import ChatBot from 'react-simple-chatbot';
 import './App.css';
 import StoryDisplay from './components/StoryDisplay';
 import StoryList from './components/StoryList';
@@ -111,19 +112,18 @@ export default class App extends React.Component<{}, IState> {
     fetch(url, {
       method: 'GET'
     })
-    .then(res => res.json())
-    .then(json => {
-      const currentStory = json[0]
-      if (currentStory === undefined) {
-        return
-      }
+      .then(res => res.json())
+      .then(json => {
+        const currentStory = json[0]
+        if (currentStory === undefined) {
+          return
+        }
 
-      global.console.log(json)
-      this.setState({
-        stories: json,
-        storiesCopy: json
+        this.setState({
+          stories: json,
+          storiesCopy: json
+        })
       })
-    })
 
     // return [
     //   {
@@ -134,22 +134,22 @@ export default class App extends React.Component<{}, IState> {
     //     tag: "sad",
     //     title: "92921389",
     //   },
-      // {
-      //   author: "Mario and Luigi",
-      //   contents: "The quick brown fox jumped over the lazy doggggggggggggggggggggggggggggggggggggg",
-      //   description: "././;.ddddasdbbbqg32r1r3bbbwrbrnrenrenernernwebweb",
-      //   rating: 3.2,
-      //   tag: "scary",
-      //   title: "dinner",
-      // },
-      // {
-      //   author: "J.K Rowling",
-      //   contents: "The quick brownnnnnnnnnnnnnnnnnnnnn fox jumped ooooooooooooooooooooover the lazy dog",
-      //   description: "Yer a Wizard, Harry!",
-      //   rating: 4,
-      //   tag: "strange",
-      //   title: "Harry Potter",
-      // }
+    // {
+    //   author: "Mario and Luigi",
+    //   contents: "The quick brown fox jumped over the lazy doggggggggggggggggggggggggggggggggggggg",
+    //   description: "././;.ddddasdbbbqg32r1r3bbbwrbrnrenrenernernwebweb",
+    //   rating: 3.2,
+    //   tag: "scary",
+    //   title: "dinner",
+    // },
+    // {
+    //   author: "J.K Rowling",
+    //   contents: "The quick brownnnnnnnnnnnnnnnnnnnnn fox jumped ooooooooooooooooooooover the lazy dog",
+    //   description: "Yer a Wizard, Harry!",
+    //   rating: 4,
+    //   tag: "strange",
+    //   title: "Harry Potter",
+    // }
     // ]
 
 
