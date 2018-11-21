@@ -65,7 +65,7 @@ export default class StoryList extends React.Component<IProps, {}> {
             const children = []
             const story = storyList[i]
             children.push(<td key={"title" + i} align="center"> {story.title} </td>)
-            children.push(<td key={"author" + i} align="center"> {story.author} </td>)
+            children.push(<td key={"author" + i} align="center"> {story.authorName} </td>)
             children.push(<td key={"description" + i} align="center"> {story.description} </td>)
             children.push(<td key={"rating" + i} align="center"> {story.rating} </td>)
             children.push(<td key={"tag" + i} align="center"> {story.tag} </td>)
