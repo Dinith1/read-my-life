@@ -52,7 +52,9 @@ export default class App extends React.Component<{}, IState> {
     this.openStoryFormCreate = this.openStoryFormCreate.bind(this)
     this.openStoryFormEdit = this.openStoryFormEdit.bind(this)
     this.closeStoryForm = this.closeStoryForm.bind(this)
+    this.confirmForm = this.confirmForm.bind(this)
     this.createStory = this.createStory.bind(this)
+    this.deleteStory = this.deleteStory.bind(this)
     this.selectTag("all")
 
     this.test = this.test.bind(this)
@@ -80,7 +82,7 @@ export default class App extends React.Component<{}, IState> {
           <div className="body-list">
             {(!this.state.isRead)
               ? <StoryList stories={this.state.stories} readStory={this.readStory} currentTag={this.state.currentTag} />
-              : <StoryDisplay story={this.state.storyToRead} test={this.test} />}
+              : <StoryDisplay story={this.state.storyToRead} test={this.test} deleteStory={this.deleteStory} />}
           </div>
         </div>
 
@@ -88,12 +90,12 @@ export default class App extends React.Component<{}, IState> {
           <form>
             <div className="form-group">
               <label>Title</label>
-              <input type="text" className="form-control" id="story-title-input" value={(this.state.isEdit) ? this.state.storyToRead.title : ""} placeholder="Enter Title" maxLength={20} />
+              <input type="text" className="form-control-title" id="story-title-input" defaultValue={(this.state.isEdit) ? this.state.storyToRead.title : ""} placeholder="Enter Title" maxLength={20} />
             </div>
 
             <div className="form-group">
               <label>Description</label>
-              <input type="text" className="form-control" id="story-description-input" value={(this.state.isEdit) ? this.state.storyToRead.description : ""} placeholder="Enter a short description" maxLength={30} />
+              <input type="text" className="form-control-description" id="story-description-input" defaultValue={(this.state.isEdit) ? this.state.storyToRead.description : ""} placeholder="Enter a short description" maxLength={30} />
             </div>
 
             <div className="form-group">
@@ -113,10 +115,10 @@ export default class App extends React.Component<{}, IState> {
 
             <div className="form-group">
               <label>Story</label>
-              <input type="text" className="form-control-contents" id="story-contents-input" maxLength={500} placeholder="Write your story (max length = 500 characters)" />
+              <input type="text" className="form-control-contents" id="story-contents-input" defaultValue={(this.state.isEdit) ? this.state.storyToRead.contents : ""} maxLength={500} placeholder="Write your story (max length = 500 characters)" />
             </div>
 
-            <button type="submit" className="btn" onClick={this.createStory}>Publish</button>
+            <button type="submit" className="btn" onClick={this.confirmForm}>Publish</button>
           </form>
         </Modal>
 
@@ -125,9 +127,10 @@ export default class App extends React.Component<{}, IState> {
   }
 
   private openStoryFormCreate() {
+    global.console.log(this.state.storyToRead)
     this.setState({
       openCreateStory: true,
-      isEdit: false
+      isEdit: (this.state.storyToRead != null)
     })
   }
 
@@ -143,8 +146,59 @@ export default class App extends React.Component<{}, IState> {
     this.setState({ openCreateStory: false })
   }
 
+  private confirmForm() {
+    if (this.state.isEdit) {
+      this.editStory()
+    } else {
+      this.createStory()
+    }
+  }
+
   private createStory() {
+    const titleInput = document.getElementById("story-title-input") as HTMLInputElement
+    const descriptionInput = document.getElementById("story-description-input") as HTMLInputElement
+    const contentsInput = document.getElementById("story-contents-input") as HTMLInputElement
+    
+    if (titleInput === null || descriptionInput === null || contentsInput === null) {
+			return;
+    }
+
+    const title = titleInput.value
+    const description = descriptionInput.value
+    const tag = this.state.createTag
+    const contents = contentsInput.value
+
+    const url = "https://readmylife.azurewebsites.net/api/Story"
+
+    const formData = new FormData()
+		formData.append("Title", title)
+    formData.append("Tags", tag)
+    formData.append("Description", description)
+    formData.append("Contents", contents)
+		
+    global.console.log("CREATING STORYYYYYYYYY")
+    
+		fetch(url, {
+			body: formData,
+			headers: {'cache-control': 'no-cache'},
+			method: 'POST'
+		})
+		.then((response : any) => {
+			if (!response.ok) {
+				// Error State
+				alert(response.statusText)
+			} else {
+				location.reload()
+			}
+		})
+  }
+
+  private editStory() {
     return
+  }
+
+  private deleteStory() {
+    alert("DELETING")
   }
 
   // Go to the page for the selected story
@@ -159,7 +213,9 @@ export default class App extends React.Component<{}, IState> {
   private selectTag(tag: any) {
     this.setState({
       isRead: false,
-      currentTag: tag
+      currentTag: tag,
+      storyToRead: null,
+      isEdit: false
     })
     this.fetchStoriesByTag(tag)
   }
@@ -218,24 +274,6 @@ export default class App extends React.Component<{}, IState> {
 
   private test() {
     return
-    // const mediaConstraints = {
-    //   audio: true
-    // }
-    // const onMediaSuccess = (stream: any) => {
-    //   const mediaRecorder = new MediaStreamRecorder(stream);
-    //   mediaRecorder.mimeType = 'audio/wav'; // check this line for audio/wav
-    //   mediaRecorder.ondataavailable = (blob: any) => {
-    //     // this.postAudio(blob);
-    //     mediaRecorder.stop()
-    //   }
-    //   mediaRecorder.start(3000);
-    // }
-
-    // navigator.getUserMedia(mediaConstraints, onMediaSuccess, onMediaError)
-  
-    // private onMediaError(e: any) {
-    //   console.error('media error', e);
-    // }
   }
 
 }

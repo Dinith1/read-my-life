@@ -1,10 +1,12 @@
 import * as React from 'react';
 import './resources/css/StoryDisplay.css';
 import ChatBot from 'react-simple-chatbot';
+import Button from 'react-bootstrap/lib/Button';
 
 interface IProps {
     story: any,
-    test: any
+    test: any,
+    deleteStory: any
 }
 
 interface IState {
@@ -30,15 +32,14 @@ export default class StoryDisplay extends React.Component<IProps, IState> {
                     <div className="edit-rating-share-box">
                         <div>
                             <div className="edit-box">
-                                <button>edit</button>
-                                <button>delete</button>
+                                <Button bsStyle="danger" onClick={this.props.deleteStory}>delete</Button>
                             </div>
                         </div>
                         <div className="rating-box">
                             {this.props.story.rating}
                         </div>
-                        <div className="share-box">
-                            <button onClick={this.readAloud}>Read this story aloud!</button>
+                        <div className="read-aloud-box">
+                            <Button bsStyle="warning" onClick={this.readAloud}>{(this.state.readAloud) ? "close read aloud dialog" : "Read this story aloud!"}</Button>
                         </div>
                     </div>
 
