@@ -165,7 +165,7 @@ export default class App extends React.Component<{}, IState> {
     const descriptionInput = document.getElementById("story-description-input") as HTMLInputElement
     const contentsInput = document.getElementById("story-contents-input") as HTMLInputElement
 
-    if (titleInput === null || descriptionInput === null || contentsInput === null) {
+    if (titleInput === null || authorInput === null || descriptionInput === null || contentsInput === null) {
       return;
     }
 
@@ -203,7 +203,50 @@ export default class App extends React.Component<{}, IState> {
   }
 
   private editStory() {
-    return
+    const titleInput = document.getElementById("story-title-input") as HTMLInputElement
+    const authorInput = document.getElementById("story-author-input") as HTMLInputElement
+    const descriptionInput = document.getElementById("story-description-input") as HTMLInputElement
+    const contentsInput = document.getElementById("story-contents-input") as HTMLInputElement
+
+    if (titleInput === null || authorInput === null || descriptionInput === null || contentsInput === null) {
+      return;
+    }
+
+    const title = titleInput.value
+    const author = authorInput.value
+    const description = descriptionInput.value
+    const tag = this.state.createTag
+    const contents = contentsInput.value
+
+    const storyToEdit = this.state.storyToRead
+    const url = "https://readmylife.azurewebsites.net/api/Story/" + storyToEdit.storyID
+
+    fetch(url, {
+      body: JSON.stringify({
+        "storyID": storyToEdit.storyID,
+        "title": title,
+        "authorName": author,
+        "authorID": author,
+        "description": description,
+        "contents": contents,
+        "rating": storyToEdit.rating,
+        "numRatings": storyToEdit.numRatings,
+        "tag": tag,
+        "date": storyToEdit.date,
+        "imageURL": storyToEdit.imageURL
+      }),
+      headers: { 'cache-control': 'no-cache', 'Content-Type': 'application/json' },
+      method: 'PUT'
+    })
+      .then((response: any) => {
+        if (!response.ok) {
+          // Error State
+          alert(response.statusText + " " + url)
+        } else {
+          location.reload()
+        }
+      })
+
   }
 
   private deleteStory() {
