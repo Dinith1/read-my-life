@@ -1,15 +1,21 @@
 import * as React from 'react';
 import './resources/css/StoryDisplay.css';
+import ChatBot from 'react-simple-chatbot';
 
 interface IProps {
     story: any,
     test: any
 }
 
-export default class StoryDisplay extends React.Component<IProps, {}> {
+interface IState {
+    readAloud: boolean
+}
+
+export default class StoryDisplay extends React.Component<IProps, IState> {
     constructor(props: any) {
         super(props)
-        this.test = this.test.bind(this)
+        this.readAloud = this.readAloud.bind(this)
+        this.state = { readAloud: false }
     }
 
     public render() {
@@ -32,7 +38,7 @@ export default class StoryDisplay extends React.Component<IProps, {}> {
                             {this.props.story.rating}
                         </div>
                         <div className="share-box">
-                            <button onClick={this.props.test}>share</button>
+                            <button onClick={this.readAloud}>Read this story aloud!</button>
                         </div>
                     </div>
 
@@ -42,12 +48,30 @@ export default class StoryDisplay extends React.Component<IProps, {}> {
                 </div>
                 <div className="contents-box">
                     {this.props.story.contents}
+
+                    <div className="bot-container">
+                        {this.state.readAloud &&
+                            <ChatBot className="chatbot" id="chatbot"
+                                headerTitle="Read aloud"
+                                speechSynthesis={{ enable: true, lang: 'en' }}
+                                steps={[
+                                    {
+                                        id: '1',
+                                        message: this.props.story.title + ". By " + this.props.story.authorName + ". " + this.props.story.contents,
+                                        end: true,
+                                    },
+                                ]}
+                            />}
+                    </div>
+
                 </div>
             </div>
         );
     }
 
-    private test() {
+    private readAloud() {
+        global.console.log("hello")
+        this.setState({ readAloud: !this.state.readAloud })
         this.props.test()
     }
 

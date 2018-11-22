@@ -69,7 +69,7 @@ export default class App extends React.Component<{}, IState> {
         </div>
 
         <div className="control-wrapper">
-          <ControlBar searchTitle={this.searchTitle} searchAuthor={this.searchAuthor} currentTag={this.state.currentTag} createStory={this.openStoryFormCreate} />
+          <ControlBar searchTitle={this.searchTitle} searchAuthor={this.searchAuthor} currentTag={this.state.currentTag} createStory={this.openStoryFormCreate} isRead={this.state.isRead} />
         </div>
 
         <div className="body">
@@ -214,27 +214,28 @@ export default class App extends React.Component<{}, IState> {
   }
 
 
-//   const mediaConstraints = {
-//     audio: true
-//   }
-//   const onMediaSuccess = (stream: any) => {
-//     const mediaRecorder = new MediaStreamRecorder(stream);
-//     mediaRecorder.mimeType = 'audio/wav'; // check this line for audio/wav
-//     mediaRecorder.ondataavailable = (blob: any) => {
-//       // this.postAudio(blob);
-//       mediaRecorder.stop()
-//     }
-//     mediaRecorder.start(3000);
-//   }
 
-//   navigator.getUserMedia(mediaConstraints, onMediaSuccess, onMediaError)
-
-// function onMediaError(e: any) {
-//   console.error('media error', e);
-// }
 
   private test() {
+    return
+    // const mediaConstraints = {
+    //   audio: true
+    // }
+    // const onMediaSuccess = (stream: any) => {
+    //   const mediaRecorder = new MediaStreamRecorder(stream);
+    //   mediaRecorder.mimeType = 'audio/wav'; // check this line for audio/wav
+    //   mediaRecorder.ondataavailable = (blob: any) => {
+    //     // this.postAudio(blob);
+    //     mediaRecorder.stop()
+    //   }
+    //   mediaRecorder.start(3000);
+    // }
 
-}
+    // navigator.getUserMedia(mediaConstraints, onMediaSuccess, onMediaError)
+  
+    // private onMediaError(e: any) {
+    //   console.error('media error', e);
+    // }
+  }
 
 }
