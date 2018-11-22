@@ -69,15 +69,14 @@ body {
   right: 65px;
 }
 
-Modal {
-  width: 100%;
-  height: 100%;
-}
-
 .form-group {
   display: block;
   width: 90%;
   height: 100%;
+}
+
+.logged-in {
+  color: white;
 }
 
 /* .form-control-contents {

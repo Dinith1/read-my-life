@@ -10,7 +10,8 @@ import Select from '@material-ui/core/Select';
 import StoryDisplay from './components/StoryDisplay';
 import StoryList from './components/StoryList';
 import TagList from './components/TagList';
-// import MediaStreamRecorder from 'msr';
+import Button from 'react-bootstrap/lib/Button';
+import * as Webcam from 'react-webcam';
 
 interface IState {
   stories: any[],
@@ -24,6 +25,9 @@ interface IState {
   createDescription: string,
   createTag: string,
   createContents: string,
+  devLogin: boolean,
+  devAuthenticated: boolean,
+  refCamera: any
 }
 
 export default class App extends React.Component<{}, IState> {
@@ -41,7 +45,10 @@ export default class App extends React.Component<{}, IState> {
       createTitle: "",
       createDescription: "",
       createTag: "funny",
-      createContents: ""
+      createContents: "",
+      devLogin: false,
+      devAuthenticated: false,
+      refCamera: React.createRef()
     }
 
     this.searchTitle = this.searchTitle.bind(this)
@@ -55,6 +62,9 @@ export default class App extends React.Component<{}, IState> {
     this.confirmForm = this.confirmForm.bind(this)
     this.createStory = this.createStory.bind(this)
     this.deleteStory = this.deleteStory.bind(this)
+    this.openFaceLogin = this.openFaceLogin.bind(this)
+    this.closeFaceLogin = this.closeFaceLogin.bind(this)
+    this.authenticateFace = this.authenticateFace.bind(this)
     this.selectTag("all")
 
     this.test = this.test.bind(this)
@@ -68,6 +78,22 @@ export default class App extends React.Component<{}, IState> {
             <div className="title">Read My Life</div>
             <div className="subtitle">Read and share the stories of your life</div>
           </div>
+
+          <div className="login">
+            <Button bsStyle="warning" onClick={this.openFaceLogin}>Developer Login</Button>
+            {(this.state.devAuthenticated) ? <div className="logged-in" id="logged-in">Logged in as Developer</div> : ""}
+            <Modal open={this.state.devLogin} onClose={this.closeFaceLogin} closeOnOverlayClick={false} showCloseIcon={false} center={true}>
+              <Webcam
+                audio={false}
+                screenshotFormat="image/jpeg"
+                ref={this.state.refCamera}
+              />
+              <div className="row nav-row">
+                <div className="btn btn-primary bottom-button" onClick={this.authenticateFace}>Login</div>
+              </div>
+            </Modal>
+          </div>
+
         </div>
 
         <div className="control-wrapper">
@@ -132,7 +158,6 @@ export default class App extends React.Component<{}, IState> {
   }
 
   private openStoryFormCreate() {
-    global.console.log(this.state.storyToRead)
     this.setState({
       openCreateStory: true,
       isEdit: (this.state.storyToRead != null)
@@ -321,6 +346,54 @@ export default class App extends React.Component<{}, IState> {
       })
   }
 
+  private openFaceLogin() {
+    this.setState({ devLogin: true })
+  }
+
+  private closeFaceLogin() {
+    this.setState({ devLogin: false })
+  }
+
+  private authenticateFace() {
+    const screenshot = this.state.refCamera.current.getScreenshot();
+    global.console.log("AUTHENITCATING!!!!")
+    this.getFaceRecognitionResult(screenshot)
+  }
+
+  // Call custom vision model
+  private getFaceRecognitionResult(image: string) {
+    const url = "https://southcentralus.api.cognitive.microsoft.com/customvision/v2.0/Prediction/c9a560e3-3f21-4d0e-a6f5-5ce3cba136c0/image?iterationId=ae027e7e-7155-48ef-8762-7f3f3b388262"
+    if (image === null) {
+      return;
+    }
+    const base64 = require('base64-js');
+    const base64content = image.split(";")[1].split(",")[1]
+    const byteArray = base64.toByteArray(base64content);
+    fetch(url, {
+      body: byteArray,
+      headers: {
+        'cache-control': 'no-cache', 'Prediction-Key': '4570312c70fe49f48adff74d99c83220', 'Content-Type': 'application/octet-stream'
+      },
+      method: 'POST'
+    })
+      .then((response: any) => {
+        if (!response.ok) {
+          // Error State
+          alert(response.statusText)
+        } else {
+          response.json().then((json: any) => {
+            console.log(json.predictions[0])
+            const predResult = json.predictions[0]
+            if ((predResult.tagName === "dinith") && (predResult.probability > 0.7)) {
+              this.setState({ devAuthenticated: true })
+            } else {
+              this.setState({ devAuthenticated: false })
+            }
+          })
+        }
+      })
+    this.setState({ devLogin: false })
+  }
 
 
 
