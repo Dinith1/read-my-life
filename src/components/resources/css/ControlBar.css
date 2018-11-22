@@ -1,12 +1,23 @@
 .wrapper {
+    width: 100%;
     text-align: center;
-    background-color: aqua;
+    background-color: rgb(71, 82, 82);
     display: flex;
     align-items: left;
     justify-content: left;
+    padding: 1% 0 1% 1%;
 }
 
-/* .search-bar, .new-story, .help {
-    float: left;
-    display: flex;
-} */
+.button-search {
+    margin-top: 1%;
+    margin-left: 5%;
+}
+
+.new-story {
+    margin-left: auto; 
+    margin-right: 10%;
+}
+
+.help {
+    margin-right: 1%;
+}

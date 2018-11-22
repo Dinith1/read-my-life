@@ -10,6 +10,7 @@ import Select from '@material-ui/core/Select';
 import StoryDisplay from './components/StoryDisplay';
 import StoryList from './components/StoryList';
 import TagList from './components/TagList';
+// import MediaStreamRecorder from 'msr';
 
 interface IState {
   stories: any[],
@@ -53,6 +54,8 @@ export default class App extends React.Component<{}, IState> {
     this.closeStoryForm = this.closeStoryForm.bind(this)
     this.createStory = this.createStory.bind(this)
     this.selectTag("all")
+
+    this.test = this.test.bind(this)
   }
 
   public render() {
@@ -69,17 +72,15 @@ export default class App extends React.Component<{}, IState> {
           <ControlBar searchTitle={this.searchTitle} searchAuthor={this.searchAuthor} currentTag={this.state.currentTag} createStory={this.openStoryFormCreate} />
         </div>
 
-        <div className="body-wrapper">
-          <div className="body">
-            <div className="body-tags">
-              <TagList selectTag={this.selectTag} />
-            </div>
+        <div className="body">
+          <div className="body-tags">
+            <TagList selectTag={this.selectTag} />
+          </div>
 
-            <div className="body-list">
-              {(!this.state.isRead)
-                ? <StoryList stories={this.state.stories} readStory={this.readStory} currentTag={this.state.currentTag} />
-                : <StoryDisplay story={this.state.storyToRead} />}
-            </div>
+          <div className="body-list">
+            {(!this.state.isRead)
+              ? <StoryList stories={this.state.stories} readStory={this.readStory} currentTag={this.state.currentTag} />
+              : <StoryDisplay story={this.state.storyToRead} test={this.test} />}
           </div>
         </div>
 
@@ -98,7 +99,7 @@ export default class App extends React.Component<{}, IState> {
             <div className="form-group">
               <FormControl required className="form-control" id="story-tag-input">
                 <InputLabel htmlFor="tag-required">Tag</InputLabel>
-                <Select id="tag-select" className="form-control" value={this.state.createTag} name="createTag" inputProps={{ id: 'tag-required', }} onChange={(evt) => {this.setState({createTag: evt.target.value})}}>
+                <Select id="tag-select" className="form-control" value={this.state.createTag} name="createTag" inputProps={{ id: 'tag-required', }} onChange={(evt) => { this.setState({ createTag: evt.target.value }) }}>
                   <MenuItem value="funny">Funny</MenuItem>
                   <MenuItem value="happy">Happy</MenuItem>
                   <MenuItem value="love">Love</MenuItem>
@@ -112,7 +113,7 @@ export default class App extends React.Component<{}, IState> {
 
             <div className="form-group">
               <label>Story</label>
-              <input type="text" className="form-control-contents" id="story-contents-input" maxLength={500} placeholder="Write your story (max length = 500 characters)"/>
+              <input type="text" className="form-control-contents" id="story-contents-input" maxLength={500} placeholder="Write your story (max length = 500 characters)" />
             </div>
 
             <button type="submit" className="btn" onClick={this.createStory}>Publish</button>
@@ -210,35 +211,30 @@ export default class App extends React.Component<{}, IState> {
           storiesCopy: json
         })
       })
-
-    // return [
-    //   {
-    //     authorName: "oiasjdoisg",
-    //     contents: "lorem ipsum... blah blah blah... I like dogs",
-    //     description: "1111111111111111111111111111111111111",
-    //     rating: 2.5,
-    //     tag: "sad",
-    //     title: "92921389",
-    //   },
-    // {
-    //   author: "Mario and Luigi",
-    //   contents: "The quick brown fox jumped over the lazy doggggggggggggggggggggggggggggggggggggg",
-    //   description: "././;.ddddasdbbbqg32r1r3bbbwrbrnrenrenernernwebweb",
-    //   rating: 3.2,
-    //   tag: "scary",
-    //   title: "dinner",
-    // },
-    // {
-    //   author: "J.K Rowling",
-    //   contents: "The quick brownnnnnnnnnnnnnnnnnnnnn fox jumped ooooooooooooooooooooover the lazy dog",
-    //   description: "Yer a Wizard, Harry!",
-    //   rating: 4,
-    //   tag: "strange",
-    //   title: "Harry Potter",
-    // }
-    // ]
-
-
   }
+
+
+//   const mediaConstraints = {
+//     audio: true
+//   }
+//   const onMediaSuccess = (stream: any) => {
+//     const mediaRecorder = new MediaStreamRecorder(stream);
+//     mediaRecorder.mimeType = 'audio/wav'; // check this line for audio/wav
+//     mediaRecorder.ondataavailable = (blob: any) => {
+//       // this.postAudio(blob);
+//       mediaRecorder.stop()
+//     }
+//     mediaRecorder.start(3000);
+//   }
+
+//   navigator.getUserMedia(mediaConstraints, onMediaSuccess, onMediaError)
+
+// function onMediaError(e: any) {
+//   console.error('media error', e);
+// }
+
+  private test() {
+
+}
 
 }

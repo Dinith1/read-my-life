@@ -1,5 +1,6 @@
 import * as React from 'react';
 import './resources/css/TagList.css';
+import Label from 'react-bootstrap/lib/Label';
 
 interface IProps {
     selectTag: any
@@ -16,15 +17,14 @@ export default class TagList extends React.Component<IProps, {}> {
             <div>
                 <h1>Tags</h1>
                 <div className="tags">
-                    <h2 id="all" onClick={this.selectTag}>All</h2>
-                    <h2 id="funny" onClick={this.selectTag}>Funny</h2>
-                    <h2 id="happy" onClick={this.selectTag}>Happy</h2>
-                    <h2 id="love" onClick={this.selectTag}>Love</h2>
-                    <h2 id="sad" onClick={this.selectTag}>Sad</h2>
-                    <h2 id="scary" onClick={this.selectTag}>Scary</h2>
-                    <h2 id="strange" onClick={this.selectTag}>Strange</h2>
+                    <h2><Label id="all" onClick={this.selectTag}>All</Label></h2>
+                    <h2><Label id="funny" onClick={this.selectTag}>Funny</Label></h2>
+                    <h2><Label id="happy" onClick={this.selectTag}>Happy</Label></h2>
+                    <h2><Label id="love" onClick={this.selectTag}>Love</Label></h2>
+                    <h2><Label id="sad" onClick={this.selectTag}>Sad</Label></h2>
+                    <h2><Label id="scary" onClick={this.selectTag}>Scary</Label></h2>
+                    <h2><Label id="strange" onClick={this.selectTag}>Strange</Label></h2>
                 </div>
-
             </div>
         );
     }

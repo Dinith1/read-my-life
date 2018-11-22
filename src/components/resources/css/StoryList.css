@@ -13,12 +13,6 @@ tr:nth-child(even) {
     width: 600px;
 }
 
-th.title {
-    width: 500px;
-}
-
-
-.button-read:hover, .button-search:enabled:hover {
-    background-color: #ddc0b2;
-    cursor: pointer;
+th {
+    text-align: center;
 }

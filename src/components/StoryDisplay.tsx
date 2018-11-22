@@ -2,12 +2,14 @@ import * as React from 'react';
 import './resources/css/StoryDisplay.css';
 
 interface IProps {
-    story: any
+    story: any,
+    test: any
 }
 
 export default class StoryDisplay extends React.Component<IProps, {}> {
     constructor(props: any) {
         super(props)
+        this.test = this.test.bind(this)
     }
 
     public render() {
@@ -30,7 +32,7 @@ export default class StoryDisplay extends React.Component<IProps, {}> {
                             {this.props.story.rating}
                         </div>
                         <div className="share-box">
-                            <button>share</button>
+                            <button onClick={this.props.test}>share</button>
                         </div>
                     </div>
 
@@ -44,4 +46,10 @@ export default class StoryDisplay extends React.Component<IProps, {}> {
             </div>
         );
     }
+
+    private test() {
+        this.props.test()
+    }
+
+
 }

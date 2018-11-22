@@ -1,7 +1,9 @@
 import * as React from 'react';
 import book_icon from './resources/book_icon.png'
-import './resources/css/StoryList.css';
 import Table from 'react-bootstrap/lib/Table';
+import Button from 'react-bootstrap/lib/Button';
+import './resources/css/StoryList.css';
+
 
 interface IProps {
     stories: any[],
@@ -26,13 +28,13 @@ export default class StoryList extends React.Component<IProps, {}> {
                         <col className="table-rating"/>
                         <col className="table-tag"/>
                         <thead>
-                            <tr>
+                            <tr className="table-headings">
                                 <th>title</th>
                                 <th>Author</th>
                                 <th>Description</th>
                                 <th>Rating</th>
                                 <th>Tag</th>
-                                <th> meme</th>
+                                <th> </th>
                             </tr>
                         </thead>
                         <tbody>
@@ -61,7 +63,7 @@ export default class StoryList extends React.Component<IProps, {}> {
             children.push(<td key={"description" + i} align="center"> {story.description} </td>)
             children.push(<td key={"rating" + i} align="center"> {story.rating} </td>)
             children.push(<td key={"tag" + i} align="center"> {story.tag} </td>)
-            children.push(<td key={"read-button" + i}><button className="button-read" onClick={this.readStory.bind(this, i)}> <img src={book_icon} width="12" height="12" /> Read </button></td>)
+            children.push(<td key={"read-button" + i}><Button bsStyle="success" className="button-read" onClick={this.readStory.bind(this, i)}> <img src={book_icon} width="12" height="12" /> Read </Button></td>)
             table.push(<tr key={i + ""} id={i + ""}>{children}</tr>)
         }
         return table
