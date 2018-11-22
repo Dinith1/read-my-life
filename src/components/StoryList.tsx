@@ -1,6 +1,7 @@
 import * as React from 'react';
 import book_icon from './resources/book_icon.png'
 import './resources/css/StoryList.css';
+import Table from 'react-bootstrap/lib/Table';
 
 interface IProps {
     stories: any[],
@@ -18,23 +19,26 @@ export default class StoryList extends React.Component<IProps, {}> {
         return (
             <div>
                 <div className="story-table">
-                    <table className="story-table">
-                        <col className="table-title" width="130" />
-                        <col className="table-author" width="130" />
-                        <col className="table-description" width="130" />
-                        <col className="table-rating" width="130" />
-                        <col className="table-tag" width="130" />
-                        <tbody>
+                    <Table responsive className="story-table">
+                        <col className="table-title"/>
+                        <col className="table-author"/>
+                        <col className="table-description"/>
+                        <col className="table-rating"/>
+                        <col className="table-tag"/>
+                        <thead>
                             <tr>
                                 <th>title</th>
                                 <th>Author</th>
                                 <th>Description</th>
                                 <th>Rating</th>
                                 <th>Tag</th>
+                                <th> meme</th>
                             </tr>
+                        </thead>
+                        <tbody>
                             {this.createTable()}
                         </tbody>
-                    </table>
+                    </Table>
                 </div>
             </div>
         );

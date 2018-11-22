@@ -1,0 +1,12 @@
+.wrapper {
+    text-align: center;
+    background-color: aqua;
+    display: flex;
+    align-items: left;
+    justify-content: left;
+}
+
+/* .search-bar, .new-story, .help {
+    float: left;
+    display: flex;
+} */

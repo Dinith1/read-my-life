@@ -21,13 +21,15 @@ body {
 
 .body {
   display: flex;
-  padding: 50px;
+  /* padding: 50px; */
   color: black;
   width: 100%;
+  height: 100%;
   position: fixed;
 }
 
 .body-tags {
+  height: 100%;
   background-color: #ddc0b2;
   border-bottom: 2px solid #ff0000;
   border-top: 2px solid #ff0000;
@@ -58,4 +60,20 @@ body {
   position: absolute;
   bottom: 40px;
   right: 65px;
+}
+
+.control-wrapper {
+  background-color: #455057;
+}
+
+.form-group {
+  display: block;
+  width: 50%;
+  height: 50%;
+}
+
+.form-control-contents {
+  margin-left: 2em;
+  width: 90%;
+  height: 100%;
 }

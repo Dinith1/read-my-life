@@ -1,6 +1,12 @@
 import * as React from 'react';
+import Modal from 'react-responsive-modal';
 import './App.css';
 import ControlBar from './components/ControlBar';
+import FormControl from '@material-ui/core/FormControl';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import Select from '@material-ui/core/Select';
 import StoryDisplay from './components/StoryDisplay';
 import StoryList from './components/StoryList';
 import TagList from './components/TagList';
@@ -10,7 +16,13 @@ interface IState {
   storiesCopy: any[],
   storyToRead: any,
   currentTag: string,
-  isRead: boolean
+  isRead: boolean,
+  openCreateStory: boolean,
+  isEdit: boolean;
+  createTitle: string,
+  createDescription: string,
+  createTag: string,
+  createContents: string,
 }
 
 export default class App extends React.Component<{}, IState> {
@@ -23,6 +35,12 @@ export default class App extends React.Component<{}, IState> {
       storyToRead: null,
       currentTag: "all",
       isRead: false,
+      openCreateStory: false,
+      isEdit: false,
+      createTitle: "",
+      createDescription: "",
+      createTag: "funny",
+      createContents: ""
     }
 
     this.searchTitle = this.searchTitle.bind(this)
@@ -30,6 +48,10 @@ export default class App extends React.Component<{}, IState> {
     this.searchStory = this.searchStory.bind(this)
     this.readStory = this.readStory.bind(this)
     this.selectTag = this.selectTag.bind(this)
+    this.openStoryFormCreate = this.openStoryFormCreate.bind(this)
+    this.openStoryFormEdit = this.openStoryFormEdit.bind(this)
+    this.closeStoryForm = this.closeStoryForm.bind(this)
+    this.createStory = this.createStory.bind(this)
     this.selectTag("all")
   }
 
@@ -44,7 +66,7 @@ export default class App extends React.Component<{}, IState> {
         </div>
 
         <div className="control-wrapper">
-          <ControlBar searchTitle={this.searchTitle} searchAuthor={this.searchAuthor} currentTag={this.state.currentTag}/>
+          <ControlBar searchTitle={this.searchTitle} searchAuthor={this.searchAuthor} currentTag={this.state.currentTag} createStory={this.openStoryFormCreate} />
         </div>
 
         <div className="body-wrapper">
@@ -61,8 +83,67 @@ export default class App extends React.Component<{}, IState> {
           </div>
         </div>
 
+        <Modal open={this.state.openCreateStory} onClose={this.closeStoryForm}>
+          <form>
+            <div className="form-group">
+              <label>Title</label>
+              <input type="text" className="form-control" id="story-title-input" value={(this.state.isEdit) ? this.state.storyToRead.title : ""} placeholder="Enter Title" maxLength={20} />
+            </div>
+
+            <div className="form-group">
+              <label>Description</label>
+              <input type="text" className="form-control" id="story-description-input" value={(this.state.isEdit) ? this.state.storyToRead.description : ""} placeholder="Enter a short description" maxLength={30} />
+            </div>
+
+            <div className="form-group">
+              <FormControl required className="form-control" id="story-tag-input">
+                <InputLabel htmlFor="tag-required">Tag</InputLabel>
+                <Select id="tag-select" className="form-control" value={this.state.createTag} name="createTag" inputProps={{ id: 'tag-required', }} onChange={(evt) => {this.setState({createTag: evt.target.value})}}>
+                  <MenuItem value="funny">Funny</MenuItem>
+                  <MenuItem value="happy">Happy</MenuItem>
+                  <MenuItem value="love">Love</MenuItem>
+                  <MenuItem value="sad">Sad</MenuItem>
+                  <MenuItem value="scary">Scary</MenuItem>
+                  <MenuItem value="strange">Strange</MenuItem>
+                </Select>
+                <FormHelperText>Required</FormHelperText>
+              </FormControl>
+            </div>
+
+            <div className="form-group">
+              <label>Story</label>
+              <input type="text" className="form-control-contents" id="story-contents-input" maxLength={500} placeholder="Write your story (max length = 500 characters)"/>
+            </div>
+
+            <button type="submit" className="btn" onClick={this.createStory}>Publish</button>
+          </form>
+        </Modal>
+
       </div>
     );
+  }
+
+  private openStoryFormCreate() {
+    this.setState({
+      openCreateStory: true,
+      isEdit: false
+    })
+  }
+
+  private openStoryFormEdit() {
+    this.setState({
+      createTag: this.state.storyToRead.tag,
+      openCreateStory: true,
+      isEdit: true
+    })
+  }
+
+  private closeStoryForm() {
+    this.setState({ openCreateStory: false })
+  }
+
+  private createStory() {
+    return
   }
 
   // Go to the page for the selected story

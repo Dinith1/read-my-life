@@ -2,12 +2,15 @@ import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
 import * as React from 'react';
 import ChatBot from 'react-simple-chatbot';
+import './resources/css/ControlBar.css';
 import HelpIcon from './resources/help_icon.png';
+
 
 interface IProps {
     currentTag: any,
     searchTitle: any,
-    searchAuthor: any
+    searchAuthor: any,
+    createStory: any
 }
 
 interface IState {
@@ -23,12 +26,13 @@ export default class ControlBar extends React.Component<IProps, IState> {
         this.checkInputIsEmpty = this.checkInputIsEmpty.bind(this)
         this.enableButtons = this.enableButtons.bind(this)
         this.openChatbot = this.openChatbot.bind(this)
+        this.createStory = this.createStory.bind(this)
         this.state = { chatbotIsOpen: false }
     }
 
     public render() {
         return (
-            <div>
+            <div className="wrapper">
                 <div className="search-bar">
                     <input className="search-input" id="search-input" type="text" placeholder={`Search for a story by title or author with the ${this.props.currentTag} tag`} onChange={this.enableButtons} />
                     <Button variant="contained" className="button-search" id="btn-search-title" onClick={this.searchTitle} disabled={false}>Search By Title</Button>
@@ -36,7 +40,7 @@ export default class ControlBar extends React.Component<IProps, IState> {
                 </div>
 
                 <div className="new-story">
-                    <Button variant="fab" color="primary" aria-label="Add" className="new-story-button">
+                    <Button variant="fab" color="primary" aria-label="Add" className="new-story-button" onClick={this.createStory}>
                         <AddIcon />
                     </Button>
                 </div>
@@ -103,6 +107,10 @@ export default class ControlBar extends React.Component<IProps, IState> {
             btnTitle.disabled = false
             btnAuthor.disabled = false
         }
+    }
+
+    private createStory() {
+        this.props.createStory()
     }
 
     private openChatbot() {
