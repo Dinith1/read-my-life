@@ -16,6 +16,7 @@
     "react-responsive-modal": "^3.5.1",
     "react-router-dom": "^4.3.1",
     "react-scripts-ts": "3.1.0",
+    "react-share": "^2.3.1",
     "react-simple-chatbot": "^0.4.2",
     "react-star-rating": "^1.4.2",
     "react-star-ratings": "^2.3.0",

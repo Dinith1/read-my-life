@@ -2,6 +2,7 @@ import * as React from 'react';
 import './resources/css/StoryDisplay.css';
 import ChatBot from 'react-simple-chatbot';
 import Button from 'react-bootstrap/lib/Button';
+import { FacebookShareButton, TwitterShareButton, FacebookIcon, TwitterIcon } from 'react-share';
 
 interface IProps {
     story: any,
@@ -32,7 +33,21 @@ export default class StoryDisplay extends React.Component<IProps, IState> {
                     <div className="edit-rating-share-box">
                         <div>
                             <div className="edit-box">
-                                <Button bsStyle="danger" onClick={this.props.deleteStory}>delete</Button>
+                                
+                                <FacebookShareButton
+                                    url={"http://github.com"}
+                                    quote={"GitHub"}
+                                    className="fb-share">
+                                    <FacebookIcon size={32} round /><Button bsStyle="success">Share</Button>
+                                </FacebookShareButton>
+                                <TwitterShareButton
+                                    url="http://github.com"
+                                    quote={"GitHub"}
+                                    className="twitter-share">
+                                    <TwitterIcon size={32} round /><Button bsStyle="success">Share</Button>
+                                </TwitterShareButton>
+                                {/* <Button bsStyle="danger" onClick={this.props.deleteStory}>delete</Button> */}
+
                             </div>
                         </div>
                         <div className="rating-box">

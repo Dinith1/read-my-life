@@ -32,6 +32,7 @@
 
 .edit-box {
     background-color: azure;
+    display: flex;
 }
 
 .rating-box {
@@ -39,6 +40,16 @@
     font-weight: bold;
     padding: 20px 0 0 100px;
 }
+
+.fb-share {
+    display: flex;
+}
+
+.twitter-share {
+    display: flex;
+    margin-left: 5%;
+}
+
 
 .read-aloud-box {
     background-color: azure;

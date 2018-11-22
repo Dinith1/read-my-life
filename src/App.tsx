@@ -155,42 +155,50 @@ export default class App extends React.Component<{}, IState> {
   }
 
   private createStory() {
-    const titleInput = document.getElementById("story-title-input") as HTMLInputElement
-    const descriptionInput = document.getElementById("story-description-input") as HTMLInputElement
-    const contentsInput = document.getElementById("story-contents-input") as HTMLInputElement
+    // const titleInput = document.getElementById("story-title-input") as HTMLInputElement
+    // const descriptionInput = document.getElementById("story-description-input") as HTMLInputElement
+    // const contentsInput = document.getElementById("story-contents-input") as HTMLInputElement
     
-    if (titleInput === null || descriptionInput === null || contentsInput === null) {
-			return;
-    }
+    // if (titleInput === null || descriptionInput === null || contentsInput === null) {
+		// 	return;
+    // }
 
-    const title = titleInput.value
-    const description = descriptionInput.value
-    const tag = this.state.createTag
-    const contents = contentsInput.value
+    // const title = titleInput.value
+    // const description = descriptionInput.value
+    // const tag = this.state.createTag
+    // const contents = contentsInput.value
 
-    const url = "https://readmylife.azurewebsites.net/api/Story"
+    // const url = "https://readmylife.azurewebsites.net/api/Story"
 
-    const formData = new FormData()
-		formData.append("Title", title)
-    formData.append("Tags", tag)
-    formData.append("Description", description)
-    formData.append("Contents", contents)
-		
-    global.console.log("CREATING STORYYYYYYYYY")
+    // const formData = new FormData()
+    // formData.append("storyID")
+		// formData.append("Title", title)
+    // formData.append("Tags", tag)
+    // formData.append("Description", description)
+    // formData.append("Contents", contents)
     
-		fetch(url, {
-			body: formData,
-			headers: {'cache-control': 'no-cache'},
-			method: 'POST'
-		})
-		.then((response : any) => {
-			if (!response.ok) {
-				// Error State
-				alert(response.statusText)
-			} else {
-				location.reload()
-			}
-		})
+    // global.console.log(title)
+    // global.console.log(tag)
+    // global.console.log(description)
+    // global.console.log(contents)
+    // global.console.log("CREATING STORYYYYYYYYY")
+    // global.console.log(formData)
+    // global.console.log(url)
+    
+		// fetch(url, {
+		// 	body: formData,
+		// 	headers: {'cache-control': 'no-cache'},
+		// 	method: 'POST'
+		// })
+		// .then((response : any) => {
+		// 	if (!response.ok) {
+		// 		// Error State
+		// 		alert(response.statusText)
+		// 	} else {
+		// 		location.reload()
+		// 	}
+    // })
+    alert("NEED TO IMPLEMENT")
   }
 
   private editStory() {
