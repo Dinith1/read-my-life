@@ -90,7 +90,12 @@ export default class App extends React.Component<{}, IState> {
           <form>
             <div className="form-group">
               <label>Title</label>
-              <input type="text" className="form-control-title" id="story-title-input" defaultValue={(this.state.isEdit) ? this.state.storyToRead.title : ""} placeholder="Enter Title" maxLength={20} />
+              <input type="text" className="form-control-title" id="story-title-input" defaultValue={(this.state.isEdit) ? this.state.storyToRead.title : ""} placeholder="Enter Title" maxLength={25} />
+            </div>
+
+            <div className="form-group">
+              <label>Author</label>
+              <input type="text" className="form-control-author" id="story-author-input" defaultValue={(this.state.isEdit) ? this.state.storyToRead.authorName : ""} placeholder="Enter your name" maxLength={25} />
             </div>
 
             <div className="form-group">
@@ -155,50 +160,46 @@ export default class App extends React.Component<{}, IState> {
   }
 
   private createStory() {
-    // const titleInput = document.getElementById("story-title-input") as HTMLInputElement
-    // const descriptionInput = document.getElementById("story-description-input") as HTMLInputElement
-    // const contentsInput = document.getElementById("story-contents-input") as HTMLInputElement
-    
-    // if (titleInput === null || descriptionInput === null || contentsInput === null) {
-		// 	return;
-    // }
+    const titleInput = document.getElementById("story-title-input") as HTMLInputElement
+    const authorInput = document.getElementById("story-author-input") as HTMLInputElement
+    const descriptionInput = document.getElementById("story-description-input") as HTMLInputElement
+    const contentsInput = document.getElementById("story-contents-input") as HTMLInputElement
 
-    // const title = titleInput.value
-    // const description = descriptionInput.value
-    // const tag = this.state.createTag
-    // const contents = contentsInput.value
+    if (titleInput === null || descriptionInput === null || contentsInput === null) {
+      return;
+    }
 
-    // const url = "https://readmylife.azurewebsites.net/api/Story"
+    const title = titleInput.value
+    const author = authorInput.value
+    const description = descriptionInput.value
+    const tag = this.state.createTag
+    const contents = contentsInput.value
 
-    // const formData = new FormData()
-    // formData.append("storyID")
-		// formData.append("Title", title)
-    // formData.append("Tags", tag)
-    // formData.append("Description", description)
-    // formData.append("Contents", contents)
-    
-    // global.console.log(title)
-    // global.console.log(tag)
-    // global.console.log(description)
-    // global.console.log(contents)
-    // global.console.log("CREATING STORYYYYYYYYY")
-    // global.console.log(formData)
-    // global.console.log(url)
-    
-		// fetch(url, {
-		// 	body: formData,
-		// 	headers: {'cache-control': 'no-cache'},
-		// 	method: 'POST'
-		// })
-		// .then((response : any) => {
-		// 	if (!response.ok) {
-		// 		// Error State
-		// 		alert(response.statusText)
-		// 	} else {
-		// 		location.reload()
-		// 	}
-    // })
-    alert("NEED TO IMPLEMENT")
+    const url = "https://readmylife.azurewebsites.net/api/Story/upload"
+
+    const formData = new FormData()
+    formData.append("title", title)
+    formData.append("authorName", author)
+    formData.append("authorName", "Dinith")
+    formData.append("description", description)
+    formData.append("contents", contents)
+    formData.append("tag", tag)
+
+    global.console.log("CREATING STORYYYYYYYYY")
+
+    fetch(url, {
+      body: formData,
+      headers: { 'cache-control': 'no-cache' },
+      method: 'POST'
+    })
+      .then((response: any) => {
+        if (!response.ok) {
+          // Error State
+          alert(response.statusText)
+        } else {
+          location.reload()
+        }
+      })
   }
 
   private editStory() {

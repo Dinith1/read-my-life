@@ -4,6 +4,9 @@ import ChatBot from 'react-simple-chatbot';
 import Button from 'react-bootstrap/lib/Button';
 import { FacebookShareButton, TwitterShareButton, FacebookIcon, TwitterIcon } from 'react-share';
 
+const shareUrl = "http://github.com";
+const shareQuote = "GitHub";
+
 interface IProps {
     story: any,
     test: any,
@@ -35,14 +38,14 @@ export default class StoryDisplay extends React.Component<IProps, IState> {
                             <div className="edit-box">
                                 
                                 <FacebookShareButton
-                                    url={"http://github.com"}
-                                    quote={"GitHub"}
+                                    url={shareUrl}
+                                    quote={shareQuote}
                                     className="fb-share">
                                     <FacebookIcon size={32} round /><Button bsStyle="success">Share</Button>
                                 </FacebookShareButton>
                                 <TwitterShareButton
-                                    url="http://github.com"
-                                    quote={"GitHub"}
+                                    url={shareUrl}
+                                    quote={shareQuote}
                                     className="twitter-share">
                                     <TwitterIcon size={32} round /><Button bsStyle="success">Share</Button>
                                 </TwitterShareButton>
