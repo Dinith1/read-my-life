@@ -5,8 +5,8 @@
   }
 
 tr:nth-child(even) {
-    background-color: #e5e5e5;
-  
+    background-color: #565656;
+    color: #D7CEC7;
 }
 
 .search-input {

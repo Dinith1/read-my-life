@@ -3,13 +3,13 @@ import './resources/css/StoryDisplay.css';
 import ChatBot from 'react-simple-chatbot';
 import Button from 'react-bootstrap/lib/Button';
 import { FacebookShareButton, TwitterShareButton, FacebookIcon, TwitterIcon } from 'react-share';
+import SpeakerLogo from './resources/speaker_icon.png';
 
-const shareUrl = "http://github.com";
-const shareQuote = "GitHub";
+const shareUrl = "https://read-my-life.azurewebsites.net/";
+const shareQuote = "Story";
 
 interface IProps {
     story: any,
-    test: any,
     deleteStory: any
 }
 
@@ -34,7 +34,7 @@ export default class StoryDisplay extends React.Component<IProps, IState> {
                     </div>
 
                     <div className="edit-rating-share-box">
-                        <div>
+                        <div className="share-delete-box">
                             <div className="share-box">
                                 <FacebookShareButton
                                     url={shareUrl}
@@ -51,11 +51,11 @@ export default class StoryDisplay extends React.Component<IProps, IState> {
                                 <Button className="delete-button" bsStyle="danger" onClick={this.props.deleteStory}>delete</Button>
                             </div>
                             <div className="read-aloud-box">
-                                <Button bsStyle="warning" onClick={this.readAloud}>{(this.state.readAloud) ? "close read aloud dialog" : "Read this story aloud!"}</Button>
+                                <Button className="read-aloud-button" bsStyle="warning" onClick={this.readAloud}><img src={SpeakerLogo} width="24" height="24"/> {(this.state.readAloud) ? "close read aloud dialog" : "Read this story aloud!"}</Button>
                             </div>
                         </div>
                         <div className="rating-box">
-                            {this.props.story.rating}
+                            Rating: {this.props.story.rating}
                         </div>
 
                     </div>
@@ -88,9 +88,7 @@ export default class StoryDisplay extends React.Component<IProps, IState> {
     }
 
     private readAloud() {
-        global.console.log("hello")
         this.setState({ readAloud: !this.state.readAloud })
-        this.props.test()
     }
 
 

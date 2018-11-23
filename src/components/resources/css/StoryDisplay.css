@@ -1,7 +1,3 @@
-.container {
-    
-}
-
 .top-box {
     display: flex;
     color: black;
@@ -12,16 +8,18 @@
     font-weight: bold;
     font-size: 50px;
     padding-top: 5px;
+    color: #D7CEC7;
 }
 
 .title-author-box {
     padding: 0 0 20px 100px;
     width: 60%;
-    background-color: azure;
+    background-color: #565656;
 }
 
 .author-box {
     display: flex;
+    color: #D7CEC7;
 }
 
 .author {
@@ -32,9 +30,16 @@
 
 .edit-rating-share-box {
     width: 40%;
+    background-color: #565656;
+    color: #D7CEC7;
 }
+
+.share-delete-box {
+    margin-top: 2%;
+    margin-left: 2%;
+}
+
 .share-box {
-    /* background-color: azure; */
     display: flex;
 }
 
@@ -45,7 +50,8 @@
 .rating-box {
     font-size: 18px;
     font-weight: bold;
-    padding: 20px 0 0 100px;
+    padding-top: 2%;
+    padding-left: 4%;
 }
 
 .fb-share {
@@ -59,17 +65,23 @@
 
 
 .read-aloud-box {
-    background-color: azure;
+    background-color: #565656;
+}
+
+.read-aloud-button {
+    margin-top: 5%;
+    margin-left: 2%;
 }
 
 .description-box {
-    background-color: beige;
+    background-color: #D7CEC7;
     padding: 20px 20px 20px 20px;
 }
 
 .contents-box {
     padding: 20px 20px 20px 20px;
-    background-color: azure;
+    background-color: #565656;
+    color: #D7CEC7;
     height: 500px;
     overflow-y: auto;
 }

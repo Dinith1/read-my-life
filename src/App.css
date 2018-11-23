@@ -1,24 +1,32 @@
 body {
-  background: #f5f5f5;
+  background: #D7CEC7;
   height: 100%;
 }
 
 .header-wrapper {
-  background-color: #36454f;
   width: 100%;
   display: flex;
   text-align: left;
   width: 100%;
+  color: #565656;
 }
 
 .title-wrapper {
   width: 100%;
   text-align: center;
-  color: #f5f5f5;
+  color: #565656;
 }
 
-.title {
+.title-a {
   width: 100%;
+  color: #565656;
+  font-size: 48px;
+  font-weight: bold;
+}
+
+.subtitle {
+  font-size: 24px;
+  font-style: italic;
 }
 
 .login {
@@ -26,7 +34,7 @@ body {
 }
 
 .control-wrapper {
-  background-color: #455057;
+  background-color: #565656;
 }
 
 .body {
@@ -40,7 +48,7 @@ body {
 
 .body-tags {
   height: 100%;
-  background-color: #ddc0b2;
+  background-color: #565656;
   width: 10%;
   text-align: center;
 }

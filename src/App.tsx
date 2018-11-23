@@ -70,8 +70,6 @@ export default class App extends React.Component<{}, IState> {
     this.authenticateFace = this.authenticateFace.bind(this)
     this.deleteYes = this.deleteYes.bind(this)
     this.selectTag("all")
-
-    this.test = this.test.bind(this)
   }
 
   public render() {
@@ -79,7 +77,7 @@ export default class App extends React.Component<{}, IState> {
       <div>
         <div className="header-wrapper">
           <div className="title-wrapper">
-            <div className="title">Read My Life</div>
+            <div className="title-a">Read My Life</div>
             <div className="subtitle">Read and share the stories of your life</div>
           </div>
 
@@ -112,7 +110,7 @@ export default class App extends React.Component<{}, IState> {
           <div className="body-list">
             {(!this.state.isRead)
               ? <StoryList stories={this.state.stories} readStory={this.readStory} currentTag={this.state.currentTag} />
-              : <StoryDisplay story={this.state.storyToRead} test={this.test} deleteStory={this.deleteStory} />}
+              : <StoryDisplay story={this.state.storyToRead} deleteStory={this.deleteStory} />}
           </div>
         </div>
 
@@ -149,7 +147,7 @@ export default class App extends React.Component<{}, IState> {
 
             <div className="form-group">
               <label>Story</label>
-              <textarea className="form-control-contents" id="story-contents-input" defaultValue={(this.state.isEdit) ? this.state.storyToRead.contents : ""} maxLength={500} placeholder="Write your story (max 500 characters)" />
+              <textarea className="form-control-contents" id="story-contents-input" defaultValue={(this.state.isEdit) ? this.state.storyToRead.contents : ""} maxLength={5000} placeholder="Write your story (max 5000 characters)" />
             </div>
 
             <button type="submit" className="btn" onClick={this.confirmForm}>Publish</button>
@@ -158,18 +156,19 @@ export default class App extends React.Component<{}, IState> {
 
         <Modal open={this.state.wantToDelete} onClose={this.closeDelete}>
           <form>
-            <label >Confirm Delete?</label>
-            <Button type="submit" onClick={this.deleteYes}>Confirm</Button>
-            <Button type="submit" onClick={this.closeDelete}>Cancel</Button>
+            <div>
+              <label >Confirm Delete?</label>
+              <Button type="submit" onClick={this.deleteYes}>Confirm</Button>
+              <Button type="submit" onClick={this.closeDelete}>Cancel</Button>
+            </div>
           </form>
         </Modal>
-
-
 
       </div >
     );
   }
 
+  // Open form for writing a story
   private openStoryFormCreate() {
     this.setState({
       openCreateStory: true,
@@ -177,6 +176,7 @@ export default class App extends React.Component<{}, IState> {
     })
   }
 
+  // Open form to edit a stroy
   private openStoryFormEdit() {
     this.setState({
       createTag: this.state.storyToRead.tag,
@@ -185,10 +185,12 @@ export default class App extends React.Component<{}, IState> {
     })
   }
 
+  // Close create/edit story form
   private closeStoryForm() {
     this.setState({ openCreateStory: false })
   }
 
+  // Confirm the fields entered in the form
   private confirmForm() {
     if (this.state.isEdit) {
       this.editStory()
@@ -197,6 +199,7 @@ export default class App extends React.Component<{}, IState> {
     }
   }
 
+  // Make a POST request to create a story
   private createStory() {
     const titleInput = document.getElementById("story-title-input") as HTMLInputElement
     const authorInput = document.getElementById("story-author-input") as HTMLInputElement
@@ -223,8 +226,6 @@ export default class App extends React.Component<{}, IState> {
     formData.append("contents", contents)
     formData.append("tag", tag)
 
-    global.console.log("CREATING STORYYYYYYYYY")
-
     fetch(url, {
       body: formData,
       headers: { 'cache-control': 'no-cache' },
@@ -240,6 +241,7 @@ export default class App extends React.Component<{}, IState> {
       })
   }
 
+  // Make a PUT request to edit a story
   private editStory() {
     const titleInput = document.getElementById("story-title-input") as HTMLInputElement
     const authorInput = document.getElementById("story-author-input") as HTMLInputElement
@@ -287,6 +289,7 @@ export default class App extends React.Component<{}, IState> {
 
   }
 
+  // Check if user is a developer to delete the story
   private deleteStory() {
     if (!this.state.devAuthenticated) {
       alert("YOU ARE NOT AUTHORISED TO DELETE!")
@@ -303,6 +306,7 @@ export default class App extends React.Component<{}, IState> {
     this.setState({ wantToDelete: true })
   }
 
+  // Make a DELETE request to delete the story
   private deleteYes() {
     const url = "https://readmylife.azurewebsites.net/api/Story/" + this.state.storyToRead.storyID
 
@@ -398,11 +402,10 @@ export default class App extends React.Component<{}, IState> {
 
   private authenticateFace() {
     const screenshot = this.state.refCamera.current.getScreenshot();
-    global.console.log("AUTHENITCATING!!!!")
     this.getFaceRecognitionResult(screenshot)
   }
 
-  // Call custom vision model
+  // Call custom vision model to authenticate face
   private getFaceRecognitionResult(image: string) {
     const url = "https://southcentralus.api.cognitive.microsoft.com/customvision/v2.0/Prediction/c9a560e3-3f21-4d0e-a6f5-5ce3cba136c0/image?iterationId=ae027e7e-7155-48ef-8762-7f3f3b388262"
     if (image === null) {
@@ -424,25 +427,17 @@ export default class App extends React.Component<{}, IState> {
           alert(response.statusText)
         } else {
           response.json().then((json: any) => {
-            console.log(json.predictions[0])
             const predResult = json.predictions[0]
             if ((predResult.tagName === "dinith") && (predResult.probability > 0.7)) {
               this.setState({ devAuthenticated: true })
-              global.console.log("yes")
             } else {
               this.setState({ devAuthenticated: false })
-              global.console.log("no")
+              alert("Failed authentication")
             }
           })
         }
       })
     this.setState({ devLogin: false })
-  }
-
-
-
-  private test() {
-    return
   }
 
 }
