@@ -5,7 +5,7 @@ import Button from 'react-bootstrap/lib/Button';
 import { FacebookShareButton, TwitterShareButton, FacebookIcon, TwitterIcon } from 'react-share';
 import SpeakerLogo from './resources/speaker_icon.png';
 
-const shareUrl = "https://read-my-life.azurewebsites.net/";
+const shareUrl = "https://read-my-life-app.azurewebsites.net/";
 const shareQuote = "Story";
 
 interface IProps {
