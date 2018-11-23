@@ -30,9 +30,16 @@
     padding: 0 0 0 15px;
 }
 
-.edit-box {
-    background-color: azure;
+.edit-rating-share-box {
+    width: 40%;
+}
+.share-box {
+    /* background-color: azure; */
     display: flex;
+}
+
+.delete-button {
+    margin-left: 20%;
 }
 
 .rating-box {
@@ -65,4 +72,8 @@
     background-color: azure;
     height: 500px;
     overflow-y: auto;
+}
+
+.bot-container-read {
+    display: none;
 }

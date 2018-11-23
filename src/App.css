@@ -5,8 +5,6 @@ body {
 
 .header-wrapper {
   background-color: #36454f;
-  border-bottom: 2px solid #ff0000;
-  border-top: 2px solid #ff0000;
   width: 100%;
   display: flex;
   text-align: left;
@@ -21,6 +19,10 @@ body {
 
 .title {
   width: 100%;
+}
+
+.login {
+  padding: 1% 1% 0 0;
 }
 
 .control-wrapper {
@@ -39,15 +41,11 @@ body {
 .body-tags {
   height: 100%;
   background-color: #ddc0b2;
-  border-bottom: 2px solid #ff0000;
-  border-top: 2px solid #ff0000;
   width: 10%;
   text-align: center;
 }
 
 .body-list {
-  border-bottom: 2px solid #ff0000;
-  border-top: 2px solid #ff0000;
   width: 90%;
 }
 
@@ -79,30 +77,48 @@ body {
   color: white;
 }
 
-.form-control-title, .form-control-author {
-  width: 80vh;
-}
-
-.form-control-description {
-  width: 80vh;
-  height: 5vh;
-  resize: none;
-}
-
-.form-control-tag {
-  height: 2vh;
-  width: 80vh;
-}
-
-.form-control-contents {
-  width: 80vh;
-  height: 50vh;
-  resize: none;
-}
-
-/* @media (min-width: 768px) {
-  .form-group {
-    width: 600px;
-    margin: 30px auto;
+@media (min-width: 2000px) {
+  .form-control-title, .form-control-author {
+    width: 80vh;
   }
-} */
+
+  .form-control-description {
+    width: 80vh;
+    height: 5vh;
+    resize: none;
+  }
+
+  .form-control-tag {
+    height: 2vh;
+    width: 80vh;
+  }
+
+  .form-control-contents {
+    width: 80vh;
+    height: 50vh;
+    resize: none;
+  }
+}
+
+@media (min-width: 1024px) {
+  .form-control-title, .form-control-author {
+    width: 50vh;
+  }
+  
+  .form-control-description {
+    width: 50vh;
+    height: 5vh;
+    resize: none;
+  }
+  
+  .form-control-tag {
+    height: 2vh;
+    width: 50vh;
+  }
+  
+  .form-control-contents {
+    width: 50vh;
+    height: 50vh;
+    resize: none;
+  }
+}

@@ -35,8 +35,7 @@ export default class StoryDisplay extends React.Component<IProps, IState> {
 
                     <div className="edit-rating-share-box">
                         <div>
-                            <div className="edit-box">
-                                
+                            <div className="share-box">
                                 <FacebookShareButton
                                     url={shareUrl}
                                     quote={shareQuote}
@@ -49,16 +48,16 @@ export default class StoryDisplay extends React.Component<IProps, IState> {
                                     className="twitter-share">
                                     <TwitterIcon size={32} round /><Button bsStyle="success">Share</Button>
                                 </TwitterShareButton>
-                                {/* <Button bsStyle="danger" onClick={this.props.deleteStory}>delete</Button> */}
-
+                                <Button className="delete-button" bsStyle="danger" onClick={this.props.deleteStory}>delete</Button>
+                            </div>
+                            <div className="read-aloud-box">
+                                <Button bsStyle="warning" onClick={this.readAloud}>{(this.state.readAloud) ? "close read aloud dialog" : "Read this story aloud!"}</Button>
                             </div>
                         </div>
                         <div className="rating-box">
                             {this.props.story.rating}
                         </div>
-                        <div className="read-aloud-box">
-                            <Button bsStyle="warning" onClick={this.readAloud}>{(this.state.readAloud) ? "close read aloud dialog" : "Read this story aloud!"}</Button>
-                        </div>
+
                     </div>
 
                 </div>
@@ -68,7 +67,7 @@ export default class StoryDisplay extends React.Component<IProps, IState> {
                 <div className="contents-box">
                     {this.props.story.contents}
 
-                    <div className="bot-container">
+                    <div className="bot-container-read">
                         {this.state.readAloud &&
                             <ChatBot className="chatbot" id="chatbot"
                                 headerTitle="Read aloud"

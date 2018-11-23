@@ -26,7 +26,8 @@ interface IState {
   createContents: string,
   devLogin: boolean,
   devAuthenticated: boolean,
-  refCamera: any
+  refCamera: any,
+  wantToDelete: boolean
 }
 
 export default class App extends React.Component<{}, IState> {
@@ -47,6 +48,7 @@ export default class App extends React.Component<{}, IState> {
       createContents: "",
       devLogin: false,
       devAuthenticated: false,
+      wantToDelete: false,
       refCamera: React.createRef()
     }
 
@@ -61,9 +63,12 @@ export default class App extends React.Component<{}, IState> {
     this.confirmForm = this.confirmForm.bind(this)
     this.createStory = this.createStory.bind(this)
     this.deleteStory = this.deleteStory.bind(this)
+    this.confirmDelete = this.confirmDelete.bind(this)
+    this.closeDelete = this.closeDelete.bind(this)
     this.openFaceLogin = this.openFaceLogin.bind(this)
     this.closeFaceLogin = this.closeFaceLogin.bind(this)
     this.authenticateFace = this.authenticateFace.bind(this)
+    this.deleteYes = this.deleteYes.bind(this)
     this.selectTag("all")
 
     this.test = this.test.bind(this)
@@ -151,7 +156,17 @@ export default class App extends React.Component<{}, IState> {
           </form>
         </Modal>
 
-      </div>
+        <Modal open={this.state.wantToDelete} onClose={this.closeDelete}>
+          <form>
+            <label >Confirm Delete?</label>
+            <Button type="submit" onClick={this.deleteYes}>Confirm</Button>
+            <Button type="submit" onClick={this.closeDelete}>Cancel</Button>
+          </form>
+        </Modal>
+
+
+
+      </div >
     );
   }
 
@@ -273,7 +288,36 @@ export default class App extends React.Component<{}, IState> {
   }
 
   private deleteStory() {
-    alert("DELETING")
+    if (!this.state.devAuthenticated) {
+      alert("YOU ARE NOT AUTHORISED TO DELETE!")
+    } else {
+      this.confirmDelete()
+    }
+  }
+
+  private confirmDelete() {
+    this.setState({ wantToDelete: true })
+  }
+
+  private closeDelete() {
+    this.setState({ wantToDelete: true })
+  }
+
+  private deleteYes() {
+    const url = "https://readmylife.azurewebsites.net/api/Story/" + this.state.storyToRead.storyID
+
+    fetch(url, {
+      method: 'DELETE'
+    })
+      .then((response: any) => {
+        if (!response.ok) {
+          // Error Response
+          alert(response.statusText)
+        }
+        else {
+          location.reload()
+        }
+      })
   }
 
   // Go to the page for the selected story
@@ -384,8 +428,10 @@ export default class App extends React.Component<{}, IState> {
             const predResult = json.predictions[0]
             if ((predResult.tagName === "dinith") && (predResult.probability > 0.7)) {
               this.setState({ devAuthenticated: true })
+              global.console.log("yes")
             } else {
               this.setState({ devAuthenticated: false })
+              global.console.log("no")
             }
           })
         }
